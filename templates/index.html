@@ -7,15 +7,26 @@
 </head>
 <body>
     <h1 class="header1">Sudoku Game</h1>
-    <table>
-        {% for row in board %}
-        <tr>
-            {% for cell in row %}
-            <td>{{ cell }}</td>
+    <form method="POST" action="/submit">
+        <table>
+            {% for i in range(9) %}
+            <tr>
+                {% for j in range(9) %}
+                <td>
+                    {% if board[i][j] == "" %}
+                        <input type="text" name="cell-{{ i }}-{{ j }}" maxlength="1" pattern="[1-9]">
+                    {% else %}
+                        <input type="text" name="cell-{{ i }}-{{ j }}" value="{{ board[i][j] }}" readonly>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        </table>
+        <div style="text-align: center;">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
