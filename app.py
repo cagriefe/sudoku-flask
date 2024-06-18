@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    board = generate_sudoku()
+    board = generate_sudoku('expert')
     return render_template('index.html', board=board)
 
 if __name__ == '__main__':
