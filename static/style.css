@@ -53,12 +53,10 @@ input.user-input {
 
 @media (max-width: 700px) {
     table {
-        width: 90%; 
+        width: 400px; 
     }
 
     td, th {
-        width: auto; 
-        height: auto; 
         font-size: medium; 
     }
 }

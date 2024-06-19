@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1 class="header1">Sudoku Game</h1>
-    <form method="POST" action="/submit" onsubmit="return validateSudoku()">
+    <form method="POST" action="/submit">
         <table>
             {% for row in board %}
             <tr>
@@ -16,7 +16,7 @@
                     {% if cell == "" %}
                         <input type="text" name="cell-{{ loop.index0 }}-{{ loop.index }}" maxlength="1" pattern="[1-9]" class="user-input">
                     {% else %}
-                        <input type="text" name="cell-{{ loop.index0 }}-{{ loop.index }}" value="{{ cell }}" readonly class="pre-filled">
+                        <input type="text" name="cell-{{ loop.index0 }}-{{ loop.index }}" value="{{ cell }}" class="user-input">
                     {% endif %}
                 </td>
                 {% endfor %}
@@ -27,34 +27,10 @@
             <button type="submit">Submit</button>
         </div>
     </form>
-    <div id="error-message" class="error-message" style="display: none;"></div>
-    <script>
-        function validateSudoku() {
-            let counts = {};
-            for (let i = 1; i <= 9; i++) {
-                counts[i] = 0;
-            }
-
-            let inputs = document.querySelectorAll('input[type="text"]');
-            for (let input of inputs) {
-                let value = input.value.trim();
-                if (value !== "") {
-                    if (!value.match(/^[1-9]$/)) {
-                        document.getElementById('error-message').innerText = "Invalid input: Only numbers from 1 to 9 are allowed.";
-                        document.getElementById('error-message').style.display = 'block';
-                        return false;
-                    }
-                    counts[value] += 1;
-                    if (counts[value] > 9) {
-                        document.getElementById('error-message').innerText = "Invalid board: A number is used more than 9 times.";
-                        document.getElementById('error-message').style.display = 'block';
-                        return false;
-                    }
-                }
-            }
-            document.getElementById('error-message').style.display = 'none';
-            return true;
-        }
-    </script>
+    {% if error_message %}
+    <div id="error-message" class="error-message">
+        {{ error_message }}
+    </div>
+    {% endif %}
 </body>
 </html>

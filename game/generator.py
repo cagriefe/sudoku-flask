@@ -30,10 +30,3 @@ def generate_sudoku(difficulty='easy'):
         grid[row][col] = ""
     
     return grid
-
-# Generate a Sudoku grid with 'easy' difficulty
-random_grid = generate_sudoku('easy')
-
-# Print the grid
-for row in random_grid:
-    print(row)
